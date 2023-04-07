@@ -202,12 +202,17 @@ test(void* thread)
       printf("#BEFORE size is: %zu\n", (size_t) DS_SIZE(set));
     }
 
-
   RETRY_STATS_ZERO();
 
   barrier_cross(&barrier_global);
 
   RR_START_SIMPLE();
+
+  if (!ID){
+      printf("Recording ckpt...\n");
+      fflush(NULL);
+      m5_checkpoint(0, 0);
+  }
 
   while (stop == 0) 
     {

@@ -117,6 +117,12 @@ test(void *data)
 
   //#ifdef ICC
   /* while (stop == 0)  */
+  if (!ID) {
+    printf("Recording ckpt...\n");
+    fflush(NULL);
+    m5_checkpoint(0, 0);
+  }
+
   while (*running)
     {		
       if (unext) { // update

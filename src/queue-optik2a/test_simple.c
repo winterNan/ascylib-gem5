@@ -183,11 +183,11 @@ test(void* thread)
 #if INITIALIZE_FROM_ONE == 1
   num_elems_thread = (ID == 0) * initial;
 #endif
-    
-  for(i = 0; i < num_elems_thread; i++) 
+
+  for(i = 0; i < num_elems_thread; i++)
     {
       key = (my_random(&(seeds[0]), &(seeds[1]), &(seeds[2])) % (rand_max + 1)) + rand_min;
-      
+
       if(DS_ADD(set, key, key) == false)
 	{
 	  i--;
@@ -208,6 +208,12 @@ test(void* thread)
   barrier_cross(&barrier_global);
 
   RR_START_SIMPLE();
+
+  if (!ID) {
+    printf("Recording ckpt...\n");
+    fflush(NULL);
+    m5_checkpoint(0, 0);
+  }
 
   while (stop == 0) 
     {

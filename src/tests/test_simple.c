@@ -491,6 +491,10 @@ main(int argc, char **argv)
     
   thread_data_t* tds = (thread_data_t*) malloc(num_threads * sizeof(thread_data_t));
 
+  printf("Recording ckpt...\n");
+  fflush(NULL);
+  m5_checkpoint(0,0);
+
   long t;
   for(t = 0; t < num_threads; t++)
     {

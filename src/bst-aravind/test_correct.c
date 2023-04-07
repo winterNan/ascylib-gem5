@@ -257,14 +257,14 @@ test(void* thread)
       else
 	{ 
 	  size_t* res;
-      sval_t search_res;
+          sval_t search_res;
 	  START_TS(0);
 	  search_res = DS_CONTAINS(key, set);
 	  END_TS(0, my_getting_count);
 	  if(search_res != 0) 
 	    {
 
-        res = (size_t*) search_res->value;
+              res = (size_t*) search_res->value;
 	      ADD_DUR(my_getting_succ);
 	      my_getting_count_succ++;
 	      if (res[0] != key)

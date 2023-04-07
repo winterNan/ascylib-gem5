@@ -219,7 +219,13 @@ test(void* thread)
 
   barrier_cross(&barrier_global);
 
-  while (stop == 0) 
+  if (!ID) {
+    printf("Recording ckpt...\n");
+    fflush(NULL);
+    m5_checkpoint(0, 0);
+  }
+
+  while (stop == 0)
     {
       TEST_LOOP(ALGO_TYPE);
     }

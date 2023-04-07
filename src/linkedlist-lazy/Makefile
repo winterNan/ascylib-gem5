@@ -38,10 +38,10 @@ intset.o: linkedlist-lock.h lazy.h clh.o
 	$(CC) $(CFLAGS) -c -o $(BUILDIR)/intset.o intset.c
 
 test.o: linkedlist-lock.h lazy.h intset.h
-	$(CC) $(CFLAGS) -c -o $(BUILDIR)/test.o $(TEST_FILE)
+	$(CC) $(CFLAGS) -c -o $(BUILDIR)/test.o $(TEST_FILE) -I$(GEM5_PATH)/include/
 
 main: measurements.o ssalloc.o linkedlist-lock.o lazy.o intset.o test.o htlock.o clh.o
-	$(CC) $(CFLAGS) $(BUILDIR)/measurements.o $(BUILDIR)/ssalloc.o $(BUILDIR)/htlock.o $(BUILDIR)/clh.o $(BUILDIR)/linkedlist-lock.o $(BUILDIR)/lazy.o $(BUILDIR)/intset.o $(BUILDIR)/test.o -o $(BINS) $(LDFLAGS) 
+	$(CC) $(CFLAGS) $(BUILDIR)/measurements.o $(BUILDIR)/ssalloc.o $(BUILDIR)/htlock.o $(BUILDIR)/clh.o $(BUILDIR)/linkedlist-lock.o $(BUILDIR)/lazy.o $(BUILDIR)/intset.o $(BUILDIR)/test.o -o $(BINS) $(LDFLAGS) -I$(GEM5_PATH)/include/ 
 
 clean:
 	rm -f $(BINS)

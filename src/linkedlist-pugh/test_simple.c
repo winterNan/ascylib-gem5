@@ -209,6 +209,12 @@ test(void* thread)
 
   RR_START_SIMPLE();
 
+  if (!ID) {
+    printf("Recording ckpt...\n");
+    fflush(NULL);
+    m5_checkpoint(0, 0);
+  }
+
   while (stop == 0) 
     {
       TEST_LOOP(NULL);

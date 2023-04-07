@@ -487,9 +487,9 @@ main(int argc, char **argv)
     
   stop = 0;
 
-  maxhtlength = (unsigned int*) ssalloc(64);
-  assert(maxhtlength != NULL);
-  *maxhtlength = (unsigned int) initial / load_factor;
+  // maxhtlength = (unsigned int *) ssalloc(64);
+  // assert(maxhtlength != NULL);
+  maxhtlength = (unsigned int) initial / load_factor;
     
   DS_TYPE* set = DS_NEW();
   assert(set != NULL);

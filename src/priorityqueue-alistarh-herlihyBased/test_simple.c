@@ -216,38 +216,44 @@ test(void* thread)
   my_putting_count_succ++;
   my_removing_count_succ++;
 
-  while (stop == 0) 
+  if (!ID) {
+    printf("Recording ckpt...\n");
+    fflush(NULL);
+    m5_checkpoint(0, 0);
+  }
+
+  while (stop == 0)
     {
       //TEST_LOOP(NULL);
-      c = (uint32_t)(my_random(&(seeds[0]),&(seeds[1]),&(seeds[2])));	
+      c = (uint32_t)(my_random(&(seeds[0]),&(seeds[1]),&(seeds[2])));
       key = (c & rand_max) + rand_min;
 
-      if (rand_range(my_putting_count_succ+my_removing_count_succ) <= my_removing_count_succ)						
-        {									
-          int res;								
-          START_TS(1);							
-          res = DS_ADD(set, key, algo_type);				
-          if(res)								
-	    {								
-	      END_TS(1, my_putting_count_succ);				
-	      ADD_DUR(my_putting_succ);					
-	      my_putting_count_succ++;					
-	    }								
-          END_TS_ELSE(4, my_putting_count - my_putting_count_succ, my_putting_fail);					
-          my_putting_count++;						
-        }									
-      else				
-        {									
-          int removed;							
+      if (rand_range(my_putting_count_succ+my_removing_count_succ) <= my_removing_count_succ)
+        {
+          int res;
+          START_TS(1);
+          res = DS_ADD(set, key, algo_type);
+          if(res)
+	    {
+	      END_TS(1, my_putting_count_succ);
+	      ADD_DUR(my_putting_succ);
+	      my_putting_count_succ++;
+	    }
+          END_TS_ELSE(4, my_putting_count - my_putting_count_succ, my_putting_fail);
+          my_putting_count++;
+        }
+      else
+        {
+          int removed;
           START_TS(2);
           removed = DS_REMOVE(set, key, algo_type);
-          if(removed != 0)						
-	    {								
-	      END_TS(2, my_removing_count_succ);				
-	      ADD_DUR(my_removing_succ);				 	
-              my_removing_count_succ++;					
-            }								
-          END_TS_ELSE(5, my_removing_count - my_removing_count_succ, my_removing_fail);					
+          if(removed != 0)
+	    {
+	      END_TS(2, my_removing_count_succ);
+	      ADD_DUR(my_removing_succ);
+              my_removing_count_succ++;
+            }
+          END_TS_ELSE(5, my_removing_count - my_removing_count_succ, my_removing_fail);
           my_removing_count++;
         }
     }

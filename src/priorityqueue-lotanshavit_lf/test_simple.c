@@ -214,6 +214,12 @@ test(void* thread)
   my_putting_count_succ++;
   my_removing_count_succ++;
 
+  if (!ID) {
+    printf("Recording ckpt...\n");
+    fflush(NULL);
+    m5_checkpoint(0, 0);
+  }
+
   while (stop == 0) 
     {
       //TEST_LOOP(NULL);

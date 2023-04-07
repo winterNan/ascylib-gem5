@@ -46,7 +46,7 @@ ifeq ($(G),GL)
 endif
 
 
-CFLAGS += -D_GNU_SOURCE 
+CFLAGS += -D_GNU_SOURCE
 
 ROOT 		?= ../..
 BINDIR		?= $(ROOT)/bin
@@ -184,22 +184,6 @@ ifdef LOCK
 endif
     CC = $(SOLARIS_CC2)
     CFLAGS += -DT44
-endif
-
-# For Gem5 
-ifeq ($(PC_NAME), gem5)
-    PLATFORM_KNOWN = 1
-    CFLAGS += -DDEFAULT
-    PLATFORM_NUMA = 0
-    CORE_NUM ?= $(GEM5_CORE_NUM)
-    FREQ_GHZ := 2.000
-    CFLAGS += -DCORE_NUM=${CORE_NUM}
-    CFLAGS += -DFREQ_GHZ=${FREQ_GHZ}
-    CFLAGS += -no-pie -static
-    GEM5_PATH = ../../../gem5-lib
-    LDFLAGS += -L$(GEM5_PATH)/util/m5/build/x86/out -lm5
-    BINDIR = $(ROOT)/bin/gem5/${TEST}/${CORE_NUM}p
-    $(shell [ -d "$(BINDIR)" ] || mkdir -p $(BINDIR))
 endif
 
 ifneq ($(PLATFORM_KNOWN), 1)
